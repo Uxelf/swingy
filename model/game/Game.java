@@ -73,6 +73,9 @@ public class Game {
         if (instance == null){
             throw new IllegalStateException("Initialize a game before starting a new round");
         }
+    }
+
+    public static void exitGame(){
         //salvar progreso
     }
 

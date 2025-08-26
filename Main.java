@@ -1,17 +1,52 @@
 package my.rpg;
 
+import my.rpg.model.playerInputReader.ActionType;
+import my.rpg.model.playerInputReader.InputType;
+import my.rpg.model.playerInputReader.PlayerInputReader;
+
+import java.util.NoSuchElementException;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        PlayerInputReader inputReader = new PlayerInputReader(InputType.Text);
+
+        inputReader.setAction(ActionType.Up, Main::Up);
+        inputReader.setAction(ActionType.Down, Main::Down);
+        inputReader.setAction(ActionType.Left, Main::Left);
+        inputReader.setAction(ActionType.Right, Main::Right);
+
+        try{
+            while (true) {
+                inputReader.readInput();
+            }
+        }
+        catch (Exception e){
+            if (e instanceof NoSuchElementException){
+                System.out.println("Closing game");
+            }
+            else{
+                System.out.println("Error: " + e.getMessage());
+            }
         }
     }
+
+    public static void Up(){
+        System.out.println("UP");
+    }
+
+    public static void Down(){
+        System.out.println("DOWN");
+    }
+
+    public static void Left(){
+        System.out.println("LEFT");
+    }
+
+    public static void Right(){
+        System.out.println("RIGHT");
+    }
+
 }
