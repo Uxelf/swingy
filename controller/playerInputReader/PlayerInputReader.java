@@ -1,4 +1,4 @@
-package my.rpg.model.playerInputReader;
+package my.rpg.controller.playerInputReader;
 
 import java.util.Scanner;
 

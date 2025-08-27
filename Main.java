@@ -1,8 +1,8 @@
 package my.rpg;
 
-import my.rpg.model.playerInputReader.ActionType;
-import my.rpg.model.playerInputReader.InputType;
-import my.rpg.model.playerInputReader.PlayerInputReader;
+import my.rpg.controller.playerInputReader.ActionType;
+import my.rpg.controller.playerInputReader.InputType;
+import my.rpg.controller.playerInputReader.PlayerInputReader;
 
 import java.util.NoSuchElementException;
 

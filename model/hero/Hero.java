@@ -1,6 +1,7 @@
 package my.rpg.model.hero;
 
 import my.rpg.Main;
+import my.rpg.controller.game.Game;
 import my.rpg.model.artifact.Artifact;
 import my.rpg.model.artifact.Helm;
 import my.rpg.model.entity.Entity;
@@ -34,6 +35,7 @@ public class Hero extends Entity {
     @Override
     protected void onDeath() {
         System.out.println("Player is dead");
+        Game.getInstance().looseGame();
     }
 
     public void equipArtifact(Artifact newArtifact){

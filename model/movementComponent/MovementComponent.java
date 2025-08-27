@@ -1,6 +1,6 @@
 package my.rpg.model.movementComponent;
 
-import my.rpg.model.map.Map;
+import my.rpg.model.map.GameMap;
 
 public class MovementComponent {
     private int x, y;
@@ -26,10 +26,10 @@ public class MovementComponent {
      * @return False if the movement is not valid, True if it is.
      */
     public boolean move(MovementDirection direction){
-        if (Map.getInstance() == null){
+        if (GameMap.getInstance() == null){
             throw new IllegalStateException("Map is not initialized, can't move");
         }
-        int size = Map.getInstance().getSize();
+        int size = GameMap.getInstance().getSize();
 
         switch (direction){
             case North -> {

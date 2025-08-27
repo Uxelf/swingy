@@ -1,4 +1,4 @@
-package my.rpg.model.playerInputReader;
+package my.rpg.controller.playerInputReader;
 
 public enum ActionType { Left, Right, Up, Down, Special
 }

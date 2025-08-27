@@ -1,21 +1,21 @@
 package my.rpg.model.map;
 
-public class Map {
+public class GameMap {
 
-    private static Map instance;
+    private static GameMap instance;
 
     private final int size;
 
-    private Map(int level){
+    private GameMap(int level){
         size = calculateMapSize(level);
     }
 
-    public static Map init(int level){
-        instance = new Map(level);
+    public static GameMap init(int level){
+        instance = new GameMap(level);
         return instance;
     }
 
-    public static Map getInstance() {
+    public static GameMap getInstance() {
         return instance;
     }
 
