@@ -1,32 +1,27 @@
 package my.rpg.controller.scene.scenes.mainMenu;
 
+import my.rpg.controller.inputReader.InputReader;
 import my.rpg.controller.scene.scenes.newGame.NewGameScene;
 import my.rpg.controller.scene.Scene;
-import my.rpg.controller.textInputReader.TextInputReader;
 import my.rpg.view.menu.MainMenuView;
 
 public class MainMenuScene extends Scene {
 
     public MainMenuScene(){
         view = new MainMenuView();
+        inputReader = new InputReader.InputReaderBuilder()
+                .bind("new game", this::newGame)
+                .bind("n", this::newGame)
+                .build();
     }
 
     @Override
     public void update() {
         view.display();
-        String input = TextInputReader.readTerminalInput();
-        manageInput(input);
+        inputReader.readInput();
     }
 
-    private void manageInput(String input){
-
-        switch (input.toLowerCase()){
-            case "new game", "n" -> {
-                sceneManager.changeScene(new NewGameScene());
-            }
-            default -> {
-                System.out.println("Command [" + input + "] not recognized");
-            }
-        }
+    private void newGame(){
+        sceneManager.changeScene(new NewGameScene());
     }
 }

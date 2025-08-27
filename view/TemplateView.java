@@ -1,6 +1,6 @@
 package my.rpg.view;
 
-public abstract class GameView {
+public abstract class TemplateView {
     public abstract void display();
 
     protected void printBold(String str){

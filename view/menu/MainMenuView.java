@@ -1,8 +1,8 @@
 package my.rpg.view.menu;
 
-import my.rpg.view.GameView;
+import my.rpg.view.TemplateView;
 
-public class MainMenuView extends GameView {
+public class MainMenuView extends TemplateView {
 
     @Override
     public void display() {

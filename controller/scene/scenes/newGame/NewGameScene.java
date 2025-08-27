@@ -1,33 +1,40 @@
 package my.rpg.controller.scene.scenes.newGame;
 
+import my.rpg.controller.inputReader.InputReader;
+import my.rpg.controller.scene.scenes.game.GameScene;
 import my.rpg.controller.scene.scenes.mainMenu.MainMenuScene;
 import my.rpg.controller.scene.Scene;
-import my.rpg.controller.textInputReader.TextInputReader;
+import my.rpg.model.hero.Hero;
+import my.rpg.model.hero.HeroClass;
+import my.rpg.model.hero.HeroClassesCreator;
 import my.rpg.view.newGame.NewGameView;
 
 public class NewGameScene extends Scene {
 
     public NewGameScene(){
         view = new NewGameView();
+        inputReader = new InputReader.InputReaderBuilder()
+                .bind("back", () -> sceneManager.changeScene(new MainMenuScene()))
+                .bind("b", () -> sceneManager.changeScene(new MainMenuScene()))
+                .bind("warrior", () -> newGame(HeroClass.Warrior))
+                .bind("tank", () -> newGame(HeroClass.Tank))
+                .bind("rogue", () -> newGame(HeroClass.Rogue))
+                .build();
     }
 
     @Override
     public void update() {
         view.display();
-        String input = TextInputReader.readTerminalInput();
-        manageInput(input);
+        inputReader.readInput();
     }
 
-    private void manageInput(String input){
+    private void newGame(HeroClass classSelected){
+        Hero hero = HeroClassesCreator.CreateHero(classSelected, generateName());
+        GameScene gameScene = new GameScene(hero);
+        sceneManager.changeScene(gameScene);
+    }
 
-        switch (input){
-            case "back", "b" -> {
-                sceneManager.changeScene(new MainMenuScene());
-            }
-            default -> {
-                System.out.println("Command [" + input + "] not recognized");
-            }
-        }
-
+    private String generateName(){
+        return "Random Name";
     }
 }

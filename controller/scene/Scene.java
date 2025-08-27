@@ -1,10 +1,12 @@
 package my.rpg.controller.scene;
 
-import my.rpg.view.GameView;
+import my.rpg.controller.inputReader.InputReader;
+import my.rpg.view.TemplateView;
 
 public abstract class Scene {
-    protected GameView view;
+    protected TemplateView view;
     protected SceneManager sceneManager = null;
+    protected InputReader inputReader;
 
     public void setSceneManager(SceneManager newSceneManager){
         sceneManager = newSceneManager;
