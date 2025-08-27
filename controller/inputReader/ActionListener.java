@@ -1,4 +1,4 @@
-package my.rpg.controller.playerInputReader;
+package my.rpg.controller.inputReader;
 
 public interface ActionListener {
     void act();

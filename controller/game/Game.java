@@ -4,8 +4,8 @@ import my.rpg.controller.monstersAI.MonstersAI;
 import my.rpg.model.combatSystem.CombatManager;
 import my.rpg.model.gameState.GameData;
 import my.rpg.model.hero.Hero;
-import my.rpg.controller.playerInputReader.InputType;
-import my.rpg.controller.playerInputReader.PlayerInputReader;
+import my.rpg.controller.inputReader.InputType;
+import my.rpg.controller.inputReader.PlayerInputReader;
 import my.rpg.model.movementComponent.MovementComponent;
 
 public class Game {
