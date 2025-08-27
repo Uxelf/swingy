@@ -19,6 +19,7 @@ public abstract class Entity {
         this.defense = defense;
         hpComponent = new HpComponent(maxHp);
         hpComponent.addDeathListener(this::onDeath);
+        movementComponent = new MovementComponent();
     }
 
     public String getName() { return name;}

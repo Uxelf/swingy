@@ -10,14 +10,16 @@ import my.rpg.model.hero.Hero;
 import my.rpg.model.monster.Monster;
 import my.rpg.model.movementComponent.MovementComponent;
 import my.rpg.model.movementComponent.MovementDirection;
+import my.rpg.view.game.GameView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameScene extends Scene {
 
     private final GameData gameData;
     private static GameScene instance;
-    private List<Monster> deadMonsters;
+    private List<Monster> deadMonsters = new ArrayList<>();
 
     public GameScene(Hero player){
         if (player == null){
@@ -38,7 +40,8 @@ public class GameScene extends Scene {
                 .bind("south", () -> player.getMovementComponent().move(MovementDirection.South))
                 .build();
         gameData = new GameData(player);
-
+        view = new GameView(gameData);
+        view.render();
     }
 
     public static GameScene getInstance() {

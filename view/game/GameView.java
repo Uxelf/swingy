@@ -2,6 +2,7 @@ package my.rpg.view.game;
 
 import my.rpg.model.gameState.GameData;
 import my.rpg.model.map.GameMap;
+import my.rpg.model.monster.Monster;
 import my.rpg.view.TemplateView;
 
 public class GameView extends TemplateView {
@@ -18,6 +19,9 @@ public class GameView extends TemplateView {
     public void render() {
         printBold("THE GAME");
 
+        String map = addEntitiesToEmptyMap();
+        System.out.println(map);
+
 
     }
 
@@ -26,12 +30,35 @@ public class GameView extends TemplateView {
         StringBuilder map = new StringBuilder();
 
         for (int i = 0; i < mapSize + 2; i++) {
+//            map.append("*");
             for (int j = 0; j < mapSize + 2; j++) {
-                if (i == 0 || j == 0 || i == mapSize + 1 || j == mapSize + 1)
-                    map.append("*");
-                else
-                    map.append(" ");
+//                if (i == 0 || i == mapSize + 1)
+//                    map.append("*");
+//                else
+                    map.append(".");
             }
+            map.append("\n");
+        }
+
+        return map.toString();
+    }
+
+    private String addEntitiesToEmptyMap(){
+        StringBuilder map = new StringBuilder(emptyMap);
+
+        int pX = gameData.getPlayer().getMovementComponent().getX();
+        int pY = gameData.getPlayer().getMovementComponent().getY();
+        int mapSize = gameData.getGameMap().getSize();
+        map.replace(pX + pY * mapSize, pX + pY * mapSize + 1, "P");
+
+        printBold("Player pos: " + pX + ", " + pY + " | " + (pX + pY * mapSize));
+
+        for (Monster monster : gameData.getMonsterList()){
+            int mX = monster.getMovementComponent().getX();
+            int mY = monster.getMovementComponent().getY();
+
+            map.replace(mX + mY * mapSize, mX + mY * mapSize + 1, "O");
+            printBold("Monster pos: " + mX + ", " + mY);
         }
 
         return map.toString();

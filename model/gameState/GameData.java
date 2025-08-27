@@ -18,7 +18,12 @@ public class GameData {
             throw new IllegalStateException("Can't start a game with player = null");
         }
         this.player = player;
-        monsterList = new ArrayList<>();
+        int level = player.getLevel();
+        gameMap = GameMap.init(level);
+        monsterList = MonstersGenerator.generateMonsters(level);
+
+        int middle = (gameMap.getSize() - 1 ) / 2;
+        player.getMovementComponent().setPosition(middle, middle);
     }
 
     public Hero getPlayer() {
@@ -31,15 +36,6 @@ public class GameData {
 
     public List<Monster> getMonsterList() {
         return monsterList;
-    }
-
-    public void initNewRound(){
-       int level = player.getLevel();
-       gameMap = GameMap.init(level);
-       monsterList = MonstersGenerator.generateMonsters(level);
-
-       int middle = (gameMap.getSize() - 1 ) / 2;
-       player.getMovementComponent().setPosition(middle, middle);
     }
 
     public void removeMonsterFromList(Monster monster){
