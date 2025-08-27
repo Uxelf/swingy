@@ -2,6 +2,7 @@ package my.rpg.model.monster;
 
 import my.rpg.model.entity.Entity;
 import my.rpg.model.hero.Hero;
+import my.rpg.model.hpComponent.DeathListener;
 
 public class Monster extends Entity {
 
@@ -24,38 +25,8 @@ public class Monster extends Entity {
 
     }
 
-    public static class MonsterBuilder{
-        private String name;
-        private int level;
-        private int attack;
-        private int defense;
-        private int maxHp;
-
-        public MonsterBuilder setAttack(int attack){
-            this.attack = attack;
-            return this;
-        }
-
-        public MonsterBuilder setDefense(int defense) {
-            this.defense = defense;
-            return this;
-        }
-
-        public MonsterBuilder setLevel(int level) {
-            this.level = level;
-            return this;
-        }
-
-        public MonsterBuilder setMaxHp(int maxHp) {
-            this.maxHp = maxHp;
-            return this;
-        }
-
-        public MonsterBuilder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
+    public static class MonsterBuilder extends EntityBuilder{
+        @Override
         public Monster build(){
             return new Monster(name, level, attack, defense, maxHp);
         }

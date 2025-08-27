@@ -5,6 +5,7 @@ import my.rpg.controller.game.Game;
 import my.rpg.model.artifact.Artifact;
 import my.rpg.model.artifact.Helm;
 import my.rpg.model.entity.Entity;
+import my.rpg.model.hpComponent.DeathListener;
 import my.rpg.model.hpComponent.HpComponent;
 
 public class Hero extends Entity {
@@ -34,9 +35,9 @@ public class Hero extends Entity {
 
     @Override
     protected void onDeath() {
-        System.out.println("Player is dead");
-        Game.getInstance().looseGame();
+
     }
+
 
     public void equipArtifact(Artifact newArtifact){
         if (artifact != null)
@@ -57,13 +58,8 @@ public class Hero extends Entity {
         level += 1;
     }
 
-    public static class HeroBuilder{
-        private String name;
+    public static class HeroBuilder extends EntityBuilder{
         private HeroClass heroClass;
-        private int level;
-        private int attack;
-        private int defense;
-        private int maxHp;
         private Artifact artifact = null;
 
 
@@ -72,37 +68,13 @@ public class Hero extends Entity {
             return this;
         }
 
-        public HeroBuilder setAttack(int attack) {
-            this.attack = attack;
-            return this;
-        }
-
-        public HeroBuilder setDefense(int defense) {
-            this.defense = defense;
-            return this;
-        }
-
         public HeroBuilder setHeroClass(HeroClass heroClass) {
             this.heroClass = heroClass;
             return this;
         }
 
-        public HeroBuilder setLevel(int level) {
-            this.level = level;
-            return this;
-        }
-
-        public HeroBuilder setMaxHp(int maxHp) {
-            this.maxHp = maxHp;
-            return this;
-        }
-
-        public HeroBuilder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Hero Build(){
+        @Override
+        public Hero build() {
             return new Hero(name, heroClass, level, attack, defense, maxHp, artifact);
         }
     }

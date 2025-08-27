@@ -1,7 +1,6 @@
 package my.rpg.model.entity;
 
-import my.rpg.model.artifact.Artifact;
-import my.rpg.model.hero.HeroClass;
+import my.rpg.model.hpComponent.DeathListener;
 import my.rpg.model.hpComponent.HpComponent;
 import my.rpg.model.movementComponent.MovementComponent;
 
@@ -34,7 +33,42 @@ public abstract class Entity {
         hpComponent.takeDamage(reducedDamage);
     }
 
+    protected abstract void onDeath();
+
     public MovementComponent getMovementComponent(){ return movementComponent;}
 
-    protected abstract void onDeath();
+    public static abstract class EntityBuilder {
+        protected String name;
+        protected int level;
+        protected int attack;
+        protected int defense;
+        protected int maxHp;
+
+        public EntityBuilder setAttack(int attack){
+            this.attack = attack;
+            return this;
+        }
+
+        public EntityBuilder setDefense(int defense) {
+            this.defense = defense;
+            return this;
+        }
+
+        public EntityBuilder setLevel(int level) {
+            this.level = level;
+            return this;
+        }
+
+        public EntityBuilder setMaxHp(int maxHp) {
+            this.maxHp = maxHp;
+            return this;
+        }
+
+        public EntityBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public abstract Entity build();
+    }
 }
