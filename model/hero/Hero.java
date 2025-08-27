@@ -1,12 +1,8 @@
 package my.rpg.model.hero;
 
-import my.rpg.Main;
-import my.rpg.controller.game.Game;
+import my.rpg.controller.scene.scenes.game.GameScene;
 import my.rpg.model.artifact.Artifact;
-import my.rpg.model.artifact.Helm;
 import my.rpg.model.entity.Entity;
-import my.rpg.model.hpComponent.DeathListener;
-import my.rpg.model.hpComponent.HpComponent;
 
 public class Hero extends Entity {
 
@@ -35,7 +31,10 @@ public class Hero extends Entity {
 
     @Override
     protected void onDeath() {
-
+        GameScene gameScene = GameScene.getInstance();
+        if (gameScene != null){
+            gameScene.looseGame();
+        }
     }
 
 

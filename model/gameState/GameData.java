@@ -41,4 +41,8 @@ public class GameData {
        int middle = (gameMap.getSize() - 1 ) / 2;
        player.getMovementComponent().setPosition(middle, middle);
     }
+
+    public void removeMonsterFromList(Monster monster){
+        monsterList.remove(monster);
+    }
 }

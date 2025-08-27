@@ -24,7 +24,7 @@ public class NewGameScene extends Scene {
 
     @Override
     public void update() {
-        view.display();
+        view.render();
         inputReader.readInput();
     }
 

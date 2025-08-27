@@ -7,13 +7,17 @@ import my.rpg.controller.scene.scenes.mainMenu.MainMenuScene;
 import my.rpg.model.combatSystem.CombatManager;
 import my.rpg.model.gameState.GameData;
 import my.rpg.model.hero.Hero;
+import my.rpg.model.monster.Monster;
 import my.rpg.model.movementComponent.MovementComponent;
 import my.rpg.model.movementComponent.MovementDirection;
 
+import java.util.List;
+
 public class GameScene extends Scene {
 
-    private GameData gameData;
+    private final GameData gameData;
     private static GameScene instance;
+    private List<Monster> deadMonsters;
 
     public GameScene(Hero player){
         if (player == null){
@@ -48,10 +52,12 @@ public class GameScene extends Scene {
             endRound();
         }
         CombatManager.checkForCombat(gameData.getPlayer(), gameData.getMonsterList());
+        removeDeadMonsters();
         MonstersAI.moveMonsters(gameData.getMonsterList(), gameData.getGameMap().getSize());
         CombatManager.checkForCombat(gameData.getPlayer(), gameData.getMonsterList());
+        removeDeadMonsters();
 
-        view.display();
+        view.render();
     }
 
     private boolean isPlayerAtBorder(){
@@ -68,10 +74,20 @@ public class GameScene extends Scene {
         sceneManager.changeScene(new GameScene(gameData.getPlayer()));
     }
 
-    private void looseGame(){
+    public void looseGame(){
         instance = null;
 
         //Cambiar a una end screen
         sceneManager.changeScene(new MainMenuScene());
+    }
+
+    public void onMonsterDeath(Monster monster){
+        deadMonsters.add(monster);
+    }
+
+    private void removeDeadMonsters(){
+        for (Monster monster : deadMonsters){
+            gameData.removeMonsterFromList(monster);
+        }
     }
 }

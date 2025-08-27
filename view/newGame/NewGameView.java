@@ -4,7 +4,7 @@ import my.rpg.view.TemplateView;
 
 public class NewGameView extends TemplateView {
     @Override
-    public void display() {
+    public void render() {
         printBold("New game");
         System.out.println("Choose a class");
         printOption("Warrior");

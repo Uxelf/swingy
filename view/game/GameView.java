@@ -15,7 +15,7 @@ public class GameView extends TemplateView {
     }
 
     @Override
-    public void display() {
+    public void render() {
         printBold("THE GAME");
 
 

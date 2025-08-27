@@ -17,7 +17,7 @@ public class MonstersGenerator {
             int attack = points / 3 + Utils.randomInRange(-variance / 2, variance / 2);
             int defense = points / 3 + Utils.randomInRange(-variance / 2, variance / 2);
             int hp = points - attack - defense;
-            Monster monster = new Monster.MonsterBuilder()
+            Monster monster = (Monster) new Monster.MonsterBuilder()
                     .setAttack(attack)
                     .setDefense(defense)
                     .setMaxHp(hp)

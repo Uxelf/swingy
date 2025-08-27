@@ -5,7 +5,7 @@ import my.rpg.view.TemplateView;
 public class LoadCharacterView extends TemplateView {
 
     @Override
-    public void display() {
+    public void render() {
         printBold("Load a character");
     }
 }

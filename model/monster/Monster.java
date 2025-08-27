@@ -1,5 +1,6 @@
 package my.rpg.model.monster;
 
+import my.rpg.controller.scene.scenes.game.GameScene;
 import my.rpg.model.entity.Entity;
 import my.rpg.model.hero.Hero;
 import my.rpg.model.hpComponent.DeathListener;
@@ -22,7 +23,10 @@ public class Monster extends Entity {
 
     @Override
     protected void onDeath() {
-
+        GameScene gameScene = GameScene.getInstance();
+        if (gameScene != null){
+            gameScene.onMonsterDeath(this);
+        }
     }
 
     public static class MonsterBuilder extends EntityBuilder{

@@ -5,7 +5,7 @@ import my.rpg.view.TemplateView;
 public class MainMenuView extends TemplateView {
 
     @Override
-    public void display() {
+    public void render() {
         System.out.println("""
                  ▄▀▀▀▀▄  ▄▀▀▄    ▄▀▀▄  ▄▀▀█▀▄    ▄▀▀▄ ▀▄  ▄▀▀▀▀▄   ▄▀▀▄ ▀▀▄\s
                 █ █   ▐ █   █    ▐  █ █   █  █  █  █ █ █ █        █   ▀▄ ▄▀\s

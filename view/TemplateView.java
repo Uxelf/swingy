@@ -1,7 +1,7 @@
 package my.rpg.view;
 
 public abstract class TemplateView {
-    public abstract void display();
+    public abstract void render();
 
     protected void printBold(String str){
         System.out.println("\033[1m" + str + "\033[0m");
