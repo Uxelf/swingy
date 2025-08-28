@@ -4,6 +4,7 @@ public class Weapon extends Artifact{
 
     private Weapon(int modifier){
         super(modifier);
+        artifactType = ArtifactType.Weapon;
     }
 
     @Override
@@ -14,6 +15,11 @@ public class Weapon extends Artifact{
 
     @Override
     public int getHp(){return 0;}
+
+    @Override
+    public void printData() {
+        System.out.println("Weapon: +" + modifier + " atk");
+    }
 
     public static class ArtifactBuilder{
         private int modifier;

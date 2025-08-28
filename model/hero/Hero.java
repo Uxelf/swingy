@@ -2,6 +2,7 @@ package my.rpg.model.hero;
 
 import my.rpg.controller.scene.scenes.game.GameScene;
 import my.rpg.model.artifact.Artifact;
+import my.rpg.model.artifact.ArtifactType;
 import my.rpg.model.entity.Entity;
 
 public class Hero extends Entity {
@@ -46,7 +47,9 @@ public class Hero extends Entity {
         artifact = newArtifact;
     }
 
-    private int nextLevelNeededExp(){ return level * 1000 + (int)Math.pow(level - 1, 2) * 450; }
+    public Artifact getArtifact(){ return artifact;}
+
+    public int nextLevelNeededExp(){ return level * 1000 + (int)Math.pow(level - 1, 2) * 450; }
     public void gainExperience(int expGained){
         experience += expGained;
         if (experience > nextLevelNeededExp())

@@ -2,6 +2,7 @@ package my.rpg.controller.scene.scenes.game;
 
 import my.rpg.controller.inputReader.InputReader;
 import my.rpg.controller.monstersAI.MonstersAI;
+import my.rpg.controller.rewardSystem.RewardSystem;
 import my.rpg.controller.scene.Scene;
 import my.rpg.controller.scene.scenes.mainMenu.MainMenuScene;
 import my.rpg.model.combatSystem.CombatManager;
@@ -10,16 +11,18 @@ import my.rpg.model.hero.Hero;
 import my.rpg.model.monster.Monster;
 import my.rpg.model.movementComponent.MovementComponent;
 import my.rpg.model.movementComponent.MovementDirection;
+import my.rpg.model.utils.Utils;
 import my.rpg.view.game.GameView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GameScene extends Scene {
 
     private final GameData gameData;
     private static GameScene instance;
-    private List<Monster> deadMonsters = new ArrayList<>();
+    private final List<Monster> deadMonsters = new ArrayList<>();
 
     public GameScene(Hero player){
         if (player == null){
@@ -30,16 +33,17 @@ public class GameScene extends Scene {
         instance = this;
 
         inputReader = new InputReader.InputReaderBuilder()
-                .bind("a", () -> player.getMovementComponent().move(MovementDirection.East))
+                .bind("d", () -> player.getMovementComponent().move(MovementDirection.East))
                 .bind("east", () -> player.getMovementComponent().move(MovementDirection.East))
                 .bind("w", () -> player.getMovementComponent().move(MovementDirection.North))
                 .bind("north", () -> player.getMovementComponent().move(MovementDirection.North))
-                .bind("d", () -> player.getMovementComponent().move(MovementDirection.West))
+                .bind("a", () -> player.getMovementComponent().move(MovementDirection.West))
                 .bind("west", () -> player.getMovementComponent().move(MovementDirection.West))
                 .bind("s", () -> player.getMovementComponent().move(MovementDirection.South))
                 .bind("south", () -> player.getMovementComponent().move(MovementDirection.South))
                 .build();
         gameData = new GameData(player);
+        MonstersAI.initMonstersPositions(gameData.getMonsterList(), gameData.getGameMap().getSize());
         view = new GameView(gameData);
         view.render();
     }
@@ -86,7 +90,10 @@ public class GameScene extends Scene {
 
     public void onMonsterDeath(Monster monster){
         deadMonsters.add(monster);
+        System.out.println("YOU WON");
+        RewardSystem.rewardPlayer(gameData.getPlayer(), monster.getLevel());
     }
+
 
     private void removeDeadMonsters(){
         for (Monster monster : deadMonsters){

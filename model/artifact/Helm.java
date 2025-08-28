@@ -3,6 +3,7 @@ package my.rpg.model.artifact;
 public class Helm extends Artifact{
     private Helm(int modifier){
         super(modifier);
+        artifactType = ArtifactType.Helm;
     }
 
     @Override
@@ -13,6 +14,11 @@ public class Helm extends Artifact{
 
     @Override
     public int getHp(){return modifier;}
+
+    @Override
+    public void printData() {
+        System.out.println("Helmet: +" + modifier + " hp");
+    }
 
     public static class ArtifactBuilder{
         private int modifier;

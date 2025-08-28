@@ -25,6 +25,7 @@ public abstract class Entity {
     public String getName() { return name;}
     public int getLevel() { return level;}
     public int getHp() {return hpComponent.getCurrentHp();}
+    public int getMaxHp() {return hpComponent.getMaxHp();}
 
     public abstract int getAttack();
     public abstract int getDefense();

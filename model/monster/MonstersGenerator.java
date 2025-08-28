@@ -21,10 +21,16 @@ public class MonstersGenerator {
                     .setAttack(attack)
                     .setDefense(defense)
                     .setMaxHp(hp)
+                    .setName(generateName())
                     .build();
             monsters.add(monster);
         }
 
         return monsters;
     }
+
+    private static String generateName(){
+        return "Random Name";
+    }
 }
+

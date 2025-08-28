@@ -35,12 +35,12 @@ public class MovementComponent {
             case North -> {
                 if (y == size - 1)
                     return false;
-                y++;
+                y--;
             }
             case South -> {
                 if (y == 0)
                     return false;
-                y--;
+                y++;
             }
             case East -> {
                 if (x == size - 1)
