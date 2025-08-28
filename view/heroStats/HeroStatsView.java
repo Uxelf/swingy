@@ -14,7 +14,7 @@ public class HeroStatsView extends TemplateView {
     @Override
     public void render() {
         System.out.println(hero.getName()
-            + ", lvl: " + hero.getLevel()
+            + ", lvl " + hero.getLevel()
             + " [" + hero.getExperience() + "/" + hero.nextLevelNeededExp() + "]");
 
         System.out.print("Atk " + hero.getAttack());

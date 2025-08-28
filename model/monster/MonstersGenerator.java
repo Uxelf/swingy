@@ -30,7 +30,9 @@ public class MonstersGenerator {
     }
 
     private static String generateName(){
-        return "Random Name";
+        String[] names = {"Joe", "Vampire", "Slime", "Lion", "Goblin", "Angry bunny", "Door", "The Bus Driver", "ඞ", "The President"};
+        int rng = (int)(Math.random() * names.length);
+        return names[rng];
     }
 }
 

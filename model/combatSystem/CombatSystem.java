@@ -4,6 +4,7 @@ import my.rpg.controller.inputReader.InputReader;
 import my.rpg.model.hero.Hero;
 import my.rpg.model.monster.Monster;
 import my.rpg.model.utils.Utils;
+import my.rpg.view.monsterStats.MonsterStatsView;
 
 public class CombatSystem {
 
@@ -14,12 +15,7 @@ public class CombatSystem {
 
     private static void printStartingText(Monster monster){
         println("A combat started!\n");
-        println("Opponent: " + monster.getName());
-        println("Stats:");
-        println("Level " + monster.getLevel());
-        println("Hp " + monster.getHp());
-        println("Atk " + monster.getAttack());
-        println("Def " + monster.getDefense());
+        new MonsterStatsView(monster).render();
 
         println("\nWhat will you do?");
         println(">> Attack");
