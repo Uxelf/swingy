@@ -31,7 +31,7 @@ public abstract class Entity {
     public abstract int getDefense();
 
     public void takeDamage(int damage){
-        int reducedDamage = Math.max(damage - getDefense(), 0);
+        int reducedDamage = Math.max(damage - getDefense(), 1);
         hpComponent.takeDamage(reducedDamage);
     }
 

@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class InputReader {
 
-    private Map<String, ActionListener> bindings;
-    private InputType inputType;
-    private Scanner terminalScanner;
+    private final Map<String, ActionListener> bindings;
+    private final InputType inputType;
+    private final Scanner terminalScanner;
 
     private InputReader(Map<String, ActionListener> bindings, InputType inputType){
         this.bindings = bindings;
@@ -18,13 +18,13 @@ public class InputReader {
 
     public void readInput(){
         switch (inputType){
-            case Text -> {readTerminalInput();}
-            case GUI -> {readGUIInput();}
+            case Text ->readTerminalInput();
+            case GUI -> readGUIInput();
         }
     }
 
     private void readTerminalInput(){
-        String input = "";
+        String input;
         while (true){
             input = terminalScanner.nextLine().toLowerCase();
 

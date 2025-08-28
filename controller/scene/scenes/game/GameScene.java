@@ -11,12 +11,10 @@ import my.rpg.model.hero.Hero;
 import my.rpg.model.monster.Monster;
 import my.rpg.model.movementComponent.MovementComponent;
 import my.rpg.model.movementComponent.MovementDirection;
-import my.rpg.model.utils.Utils;
 import my.rpg.view.game.GameView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class GameScene extends Scene {
 

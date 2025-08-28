@@ -2,7 +2,6 @@ package my.rpg.model.hero;
 
 import my.rpg.controller.scene.scenes.game.GameScene;
 import my.rpg.model.artifact.Artifact;
-import my.rpg.model.artifact.ArtifactType;
 import my.rpg.model.entity.Entity;
 
 public class Hero extends Entity {

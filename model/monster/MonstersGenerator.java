@@ -22,6 +22,7 @@ public class MonstersGenerator {
                     .setDefense(defense)
                     .setMaxHp(hp)
                     .setName(generateName())
+                    .setLevel(level)
                     .build();
             monsters.add(monster);
         }

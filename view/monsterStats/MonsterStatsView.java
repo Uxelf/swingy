@@ -5,7 +5,7 @@ import my.rpg.view.TemplateView;
 
 public class MonsterStatsView extends TemplateView {
 
-    private Monster monster;
+    private final Monster monster;
 
     public MonsterStatsView(Monster monster){
         this.monster = monster;

@@ -1,7 +1,6 @@
 package my.rpg.view.game;
 
 import my.rpg.model.gameState.GameData;
-import my.rpg.model.map.GameMap;
 import my.rpg.model.monster.Monster;
 import my.rpg.view.TemplateView;
 import my.rpg.view.heroStats.HeroStatsView;
