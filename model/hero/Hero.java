@@ -52,7 +52,7 @@ public class Hero extends Entity {
     public int nextLevelNeededExp(){ return level * 1000 + (int)Math.pow(level - 1, 2) * 450; }
     public void gainExperience(int expGained){
         experience += expGained;
-        if (experience > nextLevelNeededExp())
+        if (experience >= nextLevelNeededExp())
             LevelUp();
     }
     private void LevelUp(){

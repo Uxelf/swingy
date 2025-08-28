@@ -57,6 +57,7 @@ public class GameScene extends Scene {
         inputReader.readInput();
         if (isPlayerAtBorder()){
             endRound();
+            return;
         }
         CombatManager.checkForCombat(gameData.getPlayer(), gameData.getMonsterList());
         removeDeadMonsters();

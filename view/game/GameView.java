@@ -31,8 +31,6 @@ public class GameView extends TemplateView {
         int mapSize = gameData.getGameMap().getSize();
         StringBuilder map = new StringBuilder();
 
-        System.out.println(mapSize);
-
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
                 if (i == 0 || i == mapSize - 1
@@ -50,10 +48,7 @@ public class GameView extends TemplateView {
     private String addEntitiesToEmptyMap(){
         StringBuilder map = new StringBuilder(emptyMap);
 
-        int pX = gameData.getPlayer().getMovementComponent().getX();
-        int pY = gameData.getPlayer().getMovementComponent().getY();
         int mapSize = gameData.getGameMap().getSize();
-        map.replace(pX + pY * (mapSize + 1), pX + pY * (mapSize + 1) + 1, "P");
 
         for (Monster monster : gameData.getMonsterList()){
             int mX = monster.getMovementComponent().getX();
@@ -61,6 +56,10 @@ public class GameView extends TemplateView {
 
             map.replace(mX + mY * (mapSize + 1), mX + mY * (mapSize + 1) + 1, "O");
         }
+
+        int pX = gameData.getPlayer().getMovementComponent().getX();
+        int pY = gameData.getPlayer().getMovementComponent().getY();
+        map.replace(pX + pY * (mapSize + 1), pX + pY * (mapSize + 1) + 1, "P");
 
         return map.toString();
     }

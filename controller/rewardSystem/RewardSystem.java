@@ -27,16 +27,15 @@ public class RewardSystem {
         System.out.println("You found a new artifact");
 
         Artifact artifact = ArtifactGenerator.generate(rewardLevel);
-        System.out.println("NEW:");
+        System.out.println("- NEW:");
         artifact.printData();
 
-        System.out.println("Current:");
+        System.out.println("- Current:");
         if (player.getArtifact() != null){
-            System.out.print(" -");
             player.getArtifact().printData();
         }
         else
-            System.out.println(" -[None]");
+            System.out.println("[None]");
 
         System.out.println(">> Equip (it will remove your current one)");
         System.out.println(">> Leave");

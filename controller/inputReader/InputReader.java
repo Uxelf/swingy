@@ -25,10 +25,16 @@ public class InputReader {
 
     private void readTerminalInput(){
         String input = "";
-        input = terminalScanner.nextLine().toLowerCase();
+        while (true){
+            input = terminalScanner.nextLine().toLowerCase();
 
-        if (bindings.containsKey(input)){
-            bindings.get(input).act();
+            if (bindings.containsKey(input)){
+                bindings.get(input).act();
+                break;
+            }
+            else {
+                System.out.println("Unrecognized command");
+            }
         }
     }
 
