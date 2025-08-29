@@ -12,6 +12,7 @@ public class MainMenuScene extends Scene {
         inputReader = new InputReader.InputReaderBuilder()
                 .bind("new game", this::newGame)
                 .bind("n", this::newGame)
+                .bind("exit", this::exit)
                 .build();
     }
 
@@ -24,4 +25,6 @@ public class MainMenuScene extends Scene {
     private void newGame(){
         sceneManager.changeScene(new NewGameScene());
     }
+
+    private void exit(){ sceneManager.stop();}
 }

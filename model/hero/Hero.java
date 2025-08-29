@@ -9,10 +9,17 @@ public class Hero extends Entity {
     private final HeroClass heroClass;
     private int experience;
     private Artifact artifact;
+    private final String saveFile;
 
-    private Hero(String name, HeroClass heroClass, int level, int attack, int defense, int maxHp, Artifact artifact){
+    private Hero(String name, HeroClass heroClass, int level, int experience, int attack, int defense, int hp, int maxHp, Artifact artifact, String saveFile){
         super(name, level, attack, defense, maxHp);
+        if (hp != -1){
+            int currentHp = hpComponent.getCurrentHp();
+            hpComponent.takeDamage(currentHp - hp);
+        }
         this.heroClass = heroClass;
+        this.saveFile = saveFile;
+        this.experience = experience;
         equipArtifact(artifact);
     }
 
@@ -59,10 +66,14 @@ public class Hero extends Entity {
         level += 1;
     }
 
+    public String getSaveFile(){return saveFile;}
+
     public static class HeroBuilder extends EntityBuilder{
         private HeroClass heroClass;
         private Artifact artifact = null;
-
+        private int experience;
+        private String saveFile;
+        private int hp = -1;
 
         public HeroBuilder setArtifact(Artifact artifact) {
             this.artifact = artifact;
@@ -74,9 +85,24 @@ public class Hero extends Entity {
             return this;
         }
 
+        public HeroBuilder setExperience(int experience){
+            this.experience = experience;
+            return this;
+        }
+
+        public HeroBuilder setHp(int hp){
+            this.hp = hp;
+            return this;
+        }
+
+        public HeroBuilder setSaveFile(String saveFile){
+            this.saveFile = saveFile;
+            return this;
+        }
+
         @Override
         public Hero build() {
-            return new Hero(name, heroClass, level, attack, defense, maxHp, artifact);
+            return new Hero(name, heroClass, level, experience, attack, defense, hp, maxHp, artifact, saveFile);
         }
     }
 }

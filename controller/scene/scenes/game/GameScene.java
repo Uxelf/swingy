@@ -8,6 +8,7 @@ import my.rpg.controller.scene.scenes.mainMenu.MainMenuScene;
 import my.rpg.model.combatSystem.CombatManager;
 import my.rpg.model.gameState.GameData;
 import my.rpg.model.hero.Hero;
+import my.rpg.model.hero.SaveHero;
 import my.rpg.model.monster.Monster;
 import my.rpg.model.movementComponent.MovementComponent;
 import my.rpg.model.movementComponent.MovementDirection;
@@ -21,6 +22,7 @@ public class GameScene extends Scene {
     private final GameData gameData;
     private static GameScene instance;
     private final List<Monster> deadMonsters = new ArrayList<>();
+    private boolean playing = true;
 
     public GameScene(Hero player){
         if (player == null){
@@ -39,6 +41,7 @@ public class GameScene extends Scene {
                 .bind("west", () -> player.getMovementComponent().move(MovementDirection.West))
                 .bind("s", () -> player.getMovementComponent().move(MovementDirection.South))
                 .bind("south", () -> player.getMovementComponent().move(MovementDirection.South))
+                .bind("exit", this::exitGame)
                 .build();
         gameData = new GameData(player);
         MonstersAI.initMonstersPositions(gameData.getMonsterList(), gameData.getGameMap().getSize());
@@ -57,6 +60,8 @@ public class GameScene extends Scene {
             endRound();
             return;
         }
+        if (!playing)
+            return;
         CombatManager.checkForCombat(gameData.getPlayer(), gameData.getMonsterList());
         removeDeadMonsters();
         MonstersAI.moveMonsters(gameData.getMonsterList(), gameData.getGameMap().getSize());
@@ -84,6 +89,12 @@ public class GameScene extends Scene {
         instance = null;
 
         //Cambiar a una end screen
+        sceneManager.changeScene(new MainMenuScene());
+    }
+
+    public void exitGame(){
+        playing = false;
+        SaveHero.saveHeroToFile(gameData.getPlayer());
         sceneManager.changeScene(new MainMenuScene());
     }
 
