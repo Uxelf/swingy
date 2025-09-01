@@ -23,8 +23,9 @@ public class HpComponent {
     }
     public void addMaxHp(int hp){
         this.maxHp += hp;
-        if (hp > 0)
+        if (hp > 0){
             currentHp += hp;
+        }
         if (currentHp > maxHp)
             currentHp = maxHp;
     }

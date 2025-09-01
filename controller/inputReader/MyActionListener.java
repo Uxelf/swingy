@@ -1,5 +1,5 @@
 package my.rpg.controller.inputReader;
 
-public interface ActionListener {
+public interface MyActionListener {
     void act();
 }

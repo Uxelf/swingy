@@ -1,25 +1,46 @@
 package my.rpg.controller.inputReader;
 
-import java.util.HashMap;
+import javax.swing.*;
+import java.awt.*;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 public class InputReader {
 
-    private final Map<String, ActionListener> bindings;
+    private final Map<String, MyActionListener> bindings;
     private final InputType inputType;
     private final Scanner terminalScanner;
+    private static JFrame frame;
+    private static JPanel panel;
 
-    private InputReader(Map<String, ActionListener> bindings, InputType inputType){
+    private InputReader(Map<String, MyActionListener> bindings, InputType inputType){
         this.bindings = bindings;
         this.inputType = inputType;
         terminalScanner = new Scanner(System.in);
+
+        if (frame == null){
+            frame = new JFrame("Swingui");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(400, 300);
+
+            panel = new JPanel();
+            panel.setLayout(new GridLayout(0, 1));
+            frame.add(panel);
+
+            frame.setVisible(true);
+        }
     }
 
     public void readInput(){
-        switch (inputType){
-            case Text ->readTerminalInput();
-            case GUI -> readGUIInput();
+        try {
+            switch (inputType){
+                case Text ->readTerminalInput();
+                case GUI -> readGUIInput();
+            }
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -38,17 +59,37 @@ public class InputReader {
         }
     }
 
-    private void readGUIInput(){
-        System.out.println("Reading GUI");
+    private void readGUIInput() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        SwingUtilities.invokeLater(() -> {
+            for (Map.Entry<String, MyActionListener> entry : bindings.entrySet()) {
+                if (entry.getKey().length() == 1 && !entry.getKey().matches("\\d"))
+                    continue;
+                JButton button = new JButton(entry.getKey());
+                button.addActionListener(e -> {
+                    entry.getValue().act();
+                    latch.countDown();
+                });
+                panel.add(button);
+            }
+
+            panel.revalidate();
+            panel.repaint();
+        });
+
+        latch.await();
+
+        SwingUtilities.invokeLater(() -> panel.removeAll());
     }
 
 
 
     public static class InputReaderBuilder{
-        private final Map<String, ActionListener> bindings = new HashMap<>();
-        private InputType inputType = InputType.Text;
+        private final Map<String, MyActionListener> bindings = new LinkedHashMap<>();
+        private InputType inputType = InputType.GUI;
 
-        public InputReaderBuilder bind(String command, ActionListener action){
+        public InputReaderBuilder bind(String command, MyActionListener action){
             bindings.put(command.toLowerCase(), action);
             return this;
         }

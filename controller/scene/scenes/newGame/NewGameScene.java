@@ -14,11 +14,11 @@ public class NewGameScene extends Scene {
     public NewGameScene(){
         view = new NewGameView();
         inputReader = new InputReader.InputReaderBuilder()
-                .bind("back", () -> sceneManager.changeScene(new MainMenuScene()))
-                .bind("b", () -> sceneManager.changeScene(new MainMenuScene()))
                 .bind("warrior", () -> newGame(HeroClass.Warrior))
                 .bind("tank", () -> newGame(HeroClass.Tank))
                 .bind("rogue", () -> newGame(HeroClass.Rogue))
+                .bind("back", () -> sceneManager.changeScene(new MainMenuScene()))
+                .bind("b", () -> sceneManager.changeScene(new MainMenuScene()))
                 .build();
     }
 

@@ -138,7 +138,9 @@ public class SaveHero {
     }
 
     private static Map<String, String> fileToDataMap(String fileName) throws IOException {
-        File saveFile = new File(getSaveFolder(), fileName);
+
+        File saveFile ;
+        saveFile = new File(getSaveFolder(), fileName);
         if (!saveFile.exists() || !saveFile.isFile()){
             throw new IllegalStateException("WARNING: File not found: " + fileName);
         }
@@ -172,6 +174,24 @@ public class SaveHero {
     private static void requiredKey(Map<String, String> data, String key){
         if (!data.containsKey(key) || data.get(key) == null){
             throw new IllegalArgumentException("Missing data [" + key + "]");
+        }
+    }
+
+    public static void deleteSaveFile(String saveFileName){
+        File saveFile;
+        try{
+            saveFile = new File(getSaveFolder(), saveFileName);
+        } catch (NullPointerException _) {
+            return;
+        }
+
+        if (saveFile.exists()){
+            if (!saveFile.delete()){
+                System.out.println("Error: unable to delete file " + saveFileName);
+            }
+        }
+        else{
+            System.out.println("Error: the file " + saveFileName + " no longer exists");
         }
     }
 }

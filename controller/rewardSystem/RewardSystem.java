@@ -10,7 +10,7 @@ public class RewardSystem {
 
     public static void rewardPlayer(Hero player, int rewardLevel){
 
-        int expWon = 200 + ((rewardLevel) * 150);
+        int expWon = 500 + ((rewardLevel) * 250);
         player.gainExperience(expWon);
         System.out.println("XP: +" + expWon);
         int rng = (int)(Math.random() * 2);

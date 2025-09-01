@@ -24,6 +24,6 @@ public class GameMap {
     }
 
     private int calculateMapSize(int level){
-        return (int)Math.pow(level - 1, 5) + 10 - (level % 2);
+        return (int)(level - 1) * 5 + 10 - (level % 2);
     }
 }

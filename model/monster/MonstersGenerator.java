@@ -8,7 +8,8 @@ import java.util.List;
 public class MonstersGenerator {
 
     public static List<Monster> generateMonsters(int level){
-        int amount = ((level - 1 ) * 5 + 11 - (level%2)) / 2;
+        int mapSize = (level - 1) * 5 + 10 - (level % 2);
+        int amount = (mapSize * mapSize / 15);
         int points = 10 + level * 2;
         int variance = 4;
 

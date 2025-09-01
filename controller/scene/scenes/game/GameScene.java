@@ -63,11 +63,15 @@ public class GameScene extends Scene {
         if (!playing)
             return;
         CombatManager.checkForCombat(gameData.getPlayer(), gameData.getMonsterList());
+        if (!playing)
+            return;
         removeDeadMonsters();
         MonstersAI.moveMonsters(gameData.getMonsterList(), gameData.getGameMap().getSize());
         CombatManager.checkForCombat(gameData.getPlayer(), gameData.getMonsterList());
         removeDeadMonsters();
 
+        if (!playing)
+            return;
         view.render();
     }
 
@@ -87,8 +91,8 @@ public class GameScene extends Scene {
 
     public void looseGame(){
         instance = null;
-
-        //Cambiar a una end screen
+        playing = false;
+        SaveHero.deleteSaveFile(gameData.getPlayer().getSaveFile());
         sceneManager.changeScene(new MainMenuScene());
     }
 

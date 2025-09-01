@@ -46,9 +46,10 @@ public class Hero extends Entity {
 
 
     public void equipArtifact(Artifact newArtifact){
-        if (artifact != null)
-            hpComponent.addMaxHp(-artifact.getHp());
-        if (newArtifact != null)
+        if (artifact != null && newArtifact != null){
+            hpComponent.addMaxHp(newArtifact.getHp() - artifact.getHp());
+        }
+        else if (newArtifact != null)
             hpComponent.addMaxHp(newArtifact.getHp());
         artifact = newArtifact;
     }
