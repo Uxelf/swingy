@@ -3,8 +3,7 @@ package my.rpg.model.hero;
 import my.rpg.model.artifact.*;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SaveHero {
 
@@ -73,6 +72,27 @@ public class SaveHero {
         return data;
     }
 
+    public static List<Hero> getSavedHeroes(){
+        File saveFolder = getSaveFolder();
+        File[] listOfFiles = saveFolder.listFiles(File::isFile);
+        if (listOfFiles == null)
+            return null;
+
+        List<Hero> heroes = new ArrayList<>();
+        for (File file : listOfFiles){
+            String fileName = file.getName();
+            String[] parts = fileName.split("\\.", 2);
+            if (parts.length != 2 || !parts[1].equals("swy")){
+                continue;
+            }
+            try{
+                heroes.add(fileToHero(fileName));
+            } catch (Exception e) {
+                System.out.println("Error loading file " + fileName + ":\n" + e.getMessage());
+            }
+        }
+        return heroes;
+    }
 
     public static Hero fileToHero(String fileName) throws IOException {
         Map<String, String> data = fileToDataMap(fileName);
@@ -90,6 +110,7 @@ public class SaveHero {
             throw new IllegalArgumentException("Wrong data in save file");
 
         Hero.HeroBuilder heroBuilder = new Hero.HeroBuilder();
+        heroBuilder.setSaveFile(fileName);
         heroBuilder.setName(data.get("name"));
         heroBuilder.setHeroClass(HeroClass.valueOf(data.get("class")));
         heroBuilder.setLevel(Integer.parseInt(data.get("level")));
@@ -113,12 +134,12 @@ public class SaveHero {
             heroBuilder.setArtifact(artifact);
         }
 
-        return new Hero.HeroBuilder().build();
+        return heroBuilder.build();
     }
 
     private static Map<String, String> fileToDataMap(String fileName) throws IOException {
         File saveFile = new File(getSaveFolder(), fileName);
-        if (!saveFile.exists()){
+        if (!saveFile.exists() || !saveFile.isFile()){
             throw new IllegalStateException("WARNING: File not found: " + fileName);
         }
 

@@ -35,6 +35,8 @@ public class NewGameScene extends Scene {
     }
 
     private String generateName(){
-        return "Random Name";
+        String[] names = {"Gustav", "Sam", "Korvo", "Pickle Rick", "Isaac", "Rose", "Grandma"};
+        int rng = (int)(Math.random() * names.length);
+        return names[rng];
     }
 }

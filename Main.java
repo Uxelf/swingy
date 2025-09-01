@@ -12,10 +12,10 @@ import my.rpg.model.hero.HeroClassesCreator;
 public class Main {
     public static void main(String[] args) {
 
-        Hero hero = HeroClassesCreator.CreateHero(HeroClass.Warrior, "Sam");
-        GameScene gameScene = new GameScene(hero);
-        SceneManager sceneManager = new SceneManager(gameScene);
-        //SceneManager sceneManager = new SceneManager(new MainMenuScene());
+//        Hero hero = HeroClassesCreator.CreateHero(HeroClass.Warrior, "Sam");
+//        GameScene gameScene = new GameScene(hero);
+//        SceneManager sceneManager = new SceneManager(gameScene);
+        SceneManager sceneManager = new SceneManager(new MainMenuScene());
         sceneManager.start();
     }
 }
