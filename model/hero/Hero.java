@@ -60,11 +60,14 @@ public class Hero extends Entity {
     public void gainExperience(int expGained){
         experience += expGained;
         if (experience >= nextLevelNeededExp())
-            LevelUp();
+            levelUp();
     }
-    private void LevelUp(){
+    private void levelUp(){
         experience -= nextLevelNeededExp();
         level += 1;
+        attack += 1;
+        defense += 1;
+        hpComponent.addMaxHp(2);
     }
 
     public String getSaveFile(){return saveFile;}

@@ -10,14 +10,13 @@ import java.util.concurrent.CountDownLatch;
 public class InputReader {
 
     private final Map<String, MyActionListener> bindings;
-    private final InputType inputType;
+    private static InputType inputType = InputType.Text;
     private final Scanner terminalScanner;
     private static JFrame frame;
     private static JPanel panel;
 
-    private InputReader(Map<String, MyActionListener> bindings, InputType inputType){
+    private InputReader(Map<String, MyActionListener> bindings){
         this.bindings = bindings;
-        this.inputType = inputType;
         terminalScanner = new Scanner(System.in);
 
         if (frame == null){
@@ -29,8 +28,13 @@ public class InputReader {
             panel.setLayout(new GridLayout(0, 1));
             frame.add(panel);
 
-            frame.setVisible(true);
+            if (inputType == InputType.GUI)
+                frame.setVisible(true);
         }
+    }
+
+    public static void setInputType(InputType inputType){
+        InputReader.inputType = inputType;
     }
 
     public void readInput(){
@@ -63,6 +67,7 @@ public class InputReader {
         CountDownLatch latch = new CountDownLatch(1);
 
         SwingUtilities.invokeLater(() -> {
+            panel.removeAll();
             for (Map.Entry<String, MyActionListener> entry : bindings.entrySet()) {
                 if (entry.getKey().length() == 1 && !entry.getKey().matches("\\d"))
                     continue;
@@ -79,28 +84,18 @@ public class InputReader {
         });
 
         latch.await();
-
-        SwingUtilities.invokeLater(() -> panel.removeAll());
     }
-
-
 
     public static class InputReaderBuilder{
         private final Map<String, MyActionListener> bindings = new LinkedHashMap<>();
-        private InputType inputType = InputType.GUI;
 
         public InputReaderBuilder bind(String command, MyActionListener action){
             bindings.put(command.toLowerCase(), action);
             return this;
         }
 
-        public InputReaderBuilder setInputType(InputType inputType){
-            this.inputType = inputType;
-            return this;
-        }
-
         public InputReader build(){
-            return new InputReader(bindings, inputType);
+            return new InputReader(bindings);
         }
     }
 }
