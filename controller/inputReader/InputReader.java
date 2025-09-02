@@ -1,10 +1,16 @@
 package my.rpg.controller.inputReader;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
 public class InputReader {
@@ -12,12 +18,16 @@ public class InputReader {
     private final Map<String, MyActionListener> bindings;
     private static InputType inputType = InputType.Text;
     private final Scanner terminalScanner;
+    ValidatorFactory factory;
+    Validator validator;
     private static JFrame frame;
     private static JPanel panel;
 
     private InputReader(Map<String, MyActionListener> bindings){
         this.bindings = bindings;
         terminalScanner = new Scanner(System.in);
+        factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
 
         if (frame == null){
             frame = new JFrame("Swingui");
@@ -49,12 +59,28 @@ public class InputReader {
     }
 
     private void readTerminalInput(){
-        String input;
+        CommandInput cmd;
         while (true){
-            input = terminalScanner.nextLine().toLowerCase();
+            if (!terminalScanner.hasNextLine()){
+                System.exit(0);
+                return;
+            }
+            else {
+                cmd = new CommandInput(terminalScanner.nextLine().toLowerCase());
+            }
 
-            if (bindings.containsKey(input)){
-                bindings.get(input).act();
+            Set<ConstraintViolation<CommandInput>> violations = validator.validate(cmd);
+
+
+            if (!violations.isEmpty()) {
+                for (ConstraintViolation<CommandInput> violation : violations) {
+                    System.out.println("Input error: " + violation.getMessage());
+                }
+                continue;
+            }
+
+            if (bindings.containsKey(cmd.getCommand())){
+                bindings.get(cmd.getCommand()).act();
                 break;
             }
             else {
